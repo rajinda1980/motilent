@@ -1,0 +1,7 @@
+{
+  "notificationUrl":"https://webhook.site/3b8c180a-dcac-4700-afee-9ebde4abbfcb",
+  "notificationContent":{
+    "reportUID":20fb8e02-9c55-410a-93a9-489c6f1d7598
+    "studyInstanceUID":"9998e02-9c55-410a-93a9-489c6f789798",
+  }
+}

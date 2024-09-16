@@ -59,15 +59,7 @@ public class NotificationAppTest {
                 Arguments.of(null, 1, "Validation Exception : File path is not provided"),
                 Arguments.of(new String[]{""}, 1, "Validation Exception : File path is not provided"),
                 Arguments.of(new String[]{}, 1, "Validation Exception : File path is not provided"),
-                Arguments.of(new String[]{"path1", "path2"}, 1, "Validation Exception : Too many arguments provided. Multiple file paths are not allowed"),
-                Arguments.of(new String[]{"https://www.motlient.com/invalid$json#file*path"}, 1,
-                        "Validation Exception : Invalid file path"),
-                Arguments.of(new String[]{"  https://www.motlient.com/valid-json-file-path  "}, 1,
-                        "Validation Exception : Invalid file path"),
-                Arguments.of(new String[]{"https://www.motlient.com/api/v1/resources/search?query=example-long-query-string-for-testing-the-maximum-length-of-urls-in-various-browsers-and-systems&filter=category&type=json&sort=ascending&limit=100&offset=0&additionalParameter1=value1&additionalParameter2=value2"},
-                        1, "Validation Exception : File path length cannot exceed 200 characters"),
-                Arguments.of(new String[]{"htmp://www.motlient.com/valid-file-name"}, 1, "Validation Exception : Invalid URL format"),
-                Arguments.of(new String[]{"http://www.motlient.com/<script>alert('test')</script>"}, 1, "Validation Exception : Invalid file path")
+                Arguments.of(new String[]{"path1", "path2"}, 1, "Validation Exception : Too many arguments provided. Multiple file paths are not allowed")
         );
     }
 
@@ -83,27 +75,12 @@ public class NotificationAppTest {
         Assertions.assertEquals(expectedMessaged, findMessage.get().getMessage());
     }
 
-    /**
-     * Value map
-     * @return argument list
-     */
-    static Stream<Arguments> shouldExecuteProgram() {
-        return Stream.of(
-                Arguments.of("https://www.motlient.com/api/v1/resources?query=value&another_query=value@123~name-abc"),
-                Arguments.of("https://www.motlient.com/api/v1/resources?query=value"),
-                Arguments.of("http://www.motlient.com/valid-file-path"),
-                Arguments.of("https://www.motlient.com/valid-file-path"),
-                Arguments.of("ftp://www.motlient.com/valid-file-path")
-        );
-    }
-
     @DisplayName("Application should be executed for valid url")
-    @ParameterizedTest
-    @MethodSource
-    void shouldExecuteProgram(String url) {
+    @Test
+    void shouldExecuteProgram() {
         AppValidator mockValidator = Mockito.mock(AppValidator.class);
         NotificationApp app = new NotificationApp(mockValidator);
-        String[] args = {url};
+        String[] args = {"src/test/resources/valid_notification.json"};
 
         app.run(args);
         Mockito.verify(mockValidator, Mockito.times(1)).validateJsonFilePath(args);
