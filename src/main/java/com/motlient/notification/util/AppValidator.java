@@ -26,12 +26,6 @@ public class AppValidator {
             throw new AppValidationException(AppConstants.MESSAGE_FILE_PATH_NOT_PROVIDED);
         } else if (args.length > 1) {
             throw new AppValidationException(AppConstants.MESSAGE_TOO_MANY_ARGUMENTS_ARE_PROVIDED);
-        } else if (validateUrlForSpecialCharacters(args[0])) {
-            throw new AppValidationException(AppConstants.MESSAGE_INVALID_FILE_PATH);
-        } else if (args[0].length() > 200) {
-            throw new AppValidationException(AppConstants.MESSAGE_FILE_PATH_LENGTH_EXCEEDED);
-        } else if (!validateUrlForValidUrlPatten(args[0])) {
-            throw new AppValidationException(AppConstants.MESSAGE_INVALID_URL_FORMAT);
         }
     }
 

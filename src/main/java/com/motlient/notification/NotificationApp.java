@@ -1,6 +1,10 @@
 package com.motlient.notification;
 
 import com.motlient.notification.exceptions.AppValidationException;
+import com.motlient.notification.processor.JsonParser;
+import com.motlient.notification.processor.NotificationProcessor;
+import com.motlient.notification.processor.NotificationProcessorImpl;
+import com.motlient.notification.processor.WebhookJsonParser;
 import com.motlient.notification.util.AppValidator;
 
 import java.util.logging.Logger;
@@ -37,8 +41,17 @@ public class NotificationApp {
             //1. Validating input argument
             appValidator.validateJsonFilePath(args);
 
+            //2. Process the file
+            JsonParser jsonParser = new WebhookJsonParser();
+            NotificationProcessor processor = new NotificationProcessorImpl(jsonParser);
+            processor.sendNotification(args[0]);
+
         } catch (AppValidationException exception) {
             LOGGER.severe("Validation Exception : " + exception.getMessage());
+            System.exit(1);
+
+        } catch (Exception exception) {
+            LOGGER.severe("Exception Caught: " + exception.getMessage());
             System.exit(1);
         }
     }
