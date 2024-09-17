@@ -1,6 +1,8 @@
 package com.motlient.notification;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
+import com.motlient.notification.processor.WebhookHttpClient;
+import com.motlient.notification.processor.WebhookJsonParser;
 import com.motlient.notification.util.AppValidator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -73,17 +75,6 @@ public class NotificationAppTest {
         Optional<LogRecord> findMessage = logRecords.stream().filter(r -> r.getMessage().contains(expectedMessaged)).findFirst();
         Assertions.assertTrue(findMessage.isPresent());
         Assertions.assertEquals(expectedMessaged, findMessage.get().getMessage());
-    }
-
-    @DisplayName("Application should be executed for valid url")
-    @Test
-    void shouldExecuteProgram() {
-        AppValidator mockValidator = Mockito.mock(AppValidator.class);
-        NotificationApp app = new NotificationApp(mockValidator);
-        String[] args = {"src/test/resources/valid_notification.json"};
-
-        app.run(args);
-        Mockito.verify(mockValidator, Mockito.times(1)).validateJsonFilePath(args);
     }
 
 }

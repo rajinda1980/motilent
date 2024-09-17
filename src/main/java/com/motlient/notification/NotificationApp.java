@@ -1,10 +1,8 @@
 package com.motlient.notification;
 
+import com.motlient.notification.dto.NotificationResponse;
 import com.motlient.notification.exceptions.AppValidationException;
-import com.motlient.notification.processor.JsonParser;
-import com.motlient.notification.processor.NotificationProcessor;
-import com.motlient.notification.processor.NotificationProcessorImpl;
-import com.motlient.notification.processor.WebhookJsonParser;
+import com.motlient.notification.processor.*;
 import com.motlient.notification.util.AppValidator;
 
 import java.util.logging.Logger;
@@ -22,18 +20,18 @@ public class NotificationApp {
 
     public static final Logger LOGGER = Logger.getLogger(NotificationApp.class.getName());
     private final AppValidator appValidator;
+    private final JsonParser jsonParser;
+    private final HttpClientWrapper httpClientWrapper;
 
-    public NotificationApp(AppValidator appValidator) {
+    public NotificationApp(AppValidator appValidator, JsonParser jsonParser, HttpClientWrapper httpClientWrapper) {
         this.appValidator = appValidator;
+        this.jsonParser = jsonParser;
+        this.httpClientWrapper = httpClientWrapper;
     }
 
     public static void main(String[] args) {
-        NotificationApp notificationApp = new NotificationApp(new AppValidator());
+        NotificationApp notificationApp = new NotificationApp(new AppValidator(), new WebhookJsonParser(), new WebhookHttpClient());
         notificationApp.process(args);
-    }
-
-    public void run(String[] args) {
-        process(args);
     }
 
     private void process(String[] args) {
@@ -42,9 +40,12 @@ public class NotificationApp {
             appValidator.validateJsonFilePath(args);
 
             //2. Process the file
-            JsonParser jsonParser = new WebhookJsonParser();
-            NotificationProcessor processor = new NotificationProcessorImpl(jsonParser);
-            processor.sendNotification(args[0]);
+            NotificationProcessor processor = new NotificationProcessorImpl(jsonParser, appValidator, httpClientWrapper);
+            NotificationResponse response = processor.sendNotification(args[0]);
+
+            //3. Printing the response
+            System.out.println(response.toString());
+            LOGGER.info(response.toString());
 
         } catch (AppValidationException exception) {
             LOGGER.severe("Validation Exception : " + exception.getMessage());
