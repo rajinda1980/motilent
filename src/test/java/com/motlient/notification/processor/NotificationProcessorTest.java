@@ -2,7 +2,6 @@ package com.motlient.notification.processor;
 
 import com.motlient.notification.dto.NotificationDetails;
 import com.motlient.notification.dto.NotificationResponse;
-import com.motlient.notification.exceptions.AppValidationException;
 import com.motlient.notification.util.AppValidator;
 import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;

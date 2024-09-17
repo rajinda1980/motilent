@@ -1,14 +1,10 @@
 package com.motlient.notification;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
-import com.motlient.notification.processor.WebhookHttpClient;
-import com.motlient.notification.processor.WebhookJsonParser;
-import com.motlient.notification.util.AppValidator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.motlient.notification.processor;
 
+import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class WebhookClientTest {
         HttpResponse<String> mockResponse = Mockito.mock(HttpResponse.class);
 
         Mockito.when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
-        Mockito.when(mockResponse.statusCode()).thenReturn(200);
+        Mockito.when(mockResponse.statusCode()).thenReturn(HttpStatus.SC_OK);
         Mockito.when(mockResponse.body()).thenReturn("Success");
 
         HttpClientWrapper httpClient = new WebhookHttpClient() {
@@ -33,7 +34,7 @@ public class WebhookClientTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost/webhook")).build();
         HttpResponse<String> response = httpClient.sendRequest(request);
 
-        Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertEquals(HttpStatus.SC_OK, response.statusCode());
         Assertions.assertEquals("Success", response.body());
     }
 
@@ -44,7 +45,7 @@ public class WebhookClientTest {
         HttpResponse<String> mockResponse = Mockito.mock(HttpResponse.class);
 
         Mockito.when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
-        Mockito.when(mockResponse.statusCode()).thenReturn(404);
+        Mockito.when(mockResponse.statusCode()).thenReturn(HttpStatus.SC_NOT_FOUND);
         Mockito.when(mockResponse.body()).thenReturn("Not Found");
 
         HttpClientWrapper httpClient = new WebhookHttpClient() {
@@ -56,7 +57,7 @@ public class WebhookClientTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost/webhook")).build();
         HttpResponse<String> response = httpClient.sendRequest(request);
 
-        Assertions.assertEquals(404, response.statusCode());
+        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, response.statusCode());
         Assertions.assertEquals("Not Found", response.body());
     }
 
@@ -67,7 +68,7 @@ public class WebhookClientTest {
         HttpResponse<String> mockResponse = Mockito.mock(HttpResponse.class);
 
         Mockito.when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
-        Mockito.when(mockResponse.statusCode()).thenReturn(500);
+        Mockito.when(mockResponse.statusCode()).thenReturn(HttpStatus.SC_INTERNAL_SERVER_ERROR);
         Mockito.when(mockResponse.body()).thenReturn("Internal Server Error");
 
         HttpClientWrapper httpClient = new WebhookHttpClient() {
@@ -79,7 +80,7 @@ public class WebhookClientTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost/webhook")).build();
         HttpResponse<String> response = httpClient.sendRequest(request);
 
-        Assertions.assertEquals(500, response.statusCode());
+        Assertions.assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, response.statusCode());
         Assertions.assertEquals("Internal Server Error", response.body());
     }
 }

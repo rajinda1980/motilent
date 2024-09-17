@@ -25,7 +25,7 @@ public class AppValidator {
      * @throws AppValidationException if the arguments are invalid (missing, empty, or too many)
      */
     public void validateJsonFilePath(String[] args) throws AppValidationException {
-        if (null == args || args.length == 0 || args[0].equals("")) {
+        if (null == args || args.length == 0 || args[0].trim().equals("")) {
             throw new AppValidationException(AppConstants.MESSAGE_FILE_PATH_NOT_PROVIDED);
         } else if (args.length > 1) {
             throw new AppValidationException(AppConstants.MESSAGE_TOO_MANY_ARGUMENTS_ARE_PROVIDED);

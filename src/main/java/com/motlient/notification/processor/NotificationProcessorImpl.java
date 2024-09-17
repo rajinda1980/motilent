@@ -6,7 +6,6 @@ import com.motlient.notification.exceptions.AppValidationException;
 import com.motlient.notification.util.AppConstants;
 import com.motlient.notification.util.AppValidator;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;

@@ -2,6 +2,7 @@ package com.motlient.notification.processor;
 
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class WebhookClientWireMockTest {
         String responseBody = "{ \"reportUID\": \"20fb8e02-9c55-410a-93a9-489c6f1d7598\", \"studyInstanceUID\": \"9998e02-9c55-410a-93a9-489c6f789798\" }";
         wireMock.stubFor(get(urlEqualTo("/3b8c180a-dcac-4700-afee-9ebde4abbfcb"))
                 .willReturn(aResponse()
-                        .withStatus(200)
+                        .withStatus(HttpStatus.SC_OK)
                         .withBody(responseBody)));
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -36,7 +37,7 @@ public class WebhookClientWireMockTest {
                 .build();
         HttpResponse<String> response = httpClient.sendRequest(request);
 
-        Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertEquals(HttpStatus.SC_OK, response.statusCode());
         Assertions.assertEquals(responseBody, response.body());
     }
 
@@ -45,7 +46,7 @@ public class WebhookClientWireMockTest {
     void testNotFoundRequest() throws IOException, InterruptedException {
         wireMock.stubFor(get(urlEqualTo("/3b8c180a-dcac-4700-afee-9ebde4abbfcb"))
                 .willReturn(aResponse()
-                        .withStatus(404)
+                        .withStatus(HttpStatus.SC_NOT_FOUND)
                         .withBody("Not Found")));
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -53,7 +54,7 @@ public class WebhookClientWireMockTest {
                 .build();
         HttpResponse<String> response = httpClient.sendRequest(request);
 
-        Assertions.assertEquals(404, response.statusCode());
+        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, response.statusCode());
         Assertions.assertEquals("Not Found", response.body());
     }
 
@@ -62,7 +63,7 @@ public class WebhookClientWireMockTest {
     void testServerError() throws IOException, InterruptedException {
         wireMock.stubFor(get(urlEqualTo("/3b8c180a-dcac-4700-afee-9ebde4abbfcb"))
                 .willReturn(aResponse()
-                        .withStatus(500)
+                        .withStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                         .withBody("Internal Server Error")));
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -70,7 +71,7 @@ public class WebhookClientWireMockTest {
                 .build();
         HttpResponse<String> response = httpClient.sendRequest(request);
 
-        Assertions.assertEquals(500, response.statusCode());
+        Assertions.assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, response.statusCode());
         Assertions.assertEquals("Internal Server Error", response.body());
     }
 }
