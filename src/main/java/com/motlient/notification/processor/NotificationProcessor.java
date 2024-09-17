@@ -1,5 +1,7 @@
 package com.motlient.notification.processor;
 
+import com.motlient.notification.dto.NotificationResponse;
+
 public interface NotificationProcessor {
-    void sendNotification(String filePath) throws Exception;
+    NotificationResponse sendNotification(String filePath) throws Exception;
 }

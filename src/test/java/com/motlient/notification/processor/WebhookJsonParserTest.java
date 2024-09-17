@@ -62,7 +62,7 @@ public class WebhookJsonParserTest {
         );
     }
 
-    @DisplayName("Testing edge cases")
+    @DisplayName("Test edge cases for invalid Json document")
     @ParameterizedTest
     @MethodSource
     void shouldGenerateIOException(String filePath, String expected) {

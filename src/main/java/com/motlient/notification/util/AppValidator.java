@@ -14,12 +14,15 @@ public class AppValidator {
     public static final Logger LOGGER = Logger.getLogger(AppValidator.class.getName());
 
     /**
-     * Validates the argument based on the following criteria:
-     * 1. The argument must contain only one value.
-     * 2. The argument must be a valid URL.
+     * Validates the command-line arguments to ensure that a valid JSON file path is provided
+     * <p>This method checks the following conditions:
+     * <ul>
+     *   <li>Throws an {@link AppValidationException} if no arguments are provided or the first argument is empty.</li>
+     *   <li>Throws an {@link AppValidationException} if more than one argument is passed.</li>
+     * </ul>
      *
-     * @param args - input URL
-     * @throws AppValidationException if validation fails
+     * @param args the array of command-line arguments
+     * @throws AppValidationException if the arguments are invalid (missing, empty, or too many)
      */
     public void validateJsonFilePath(String[] args) throws AppValidationException {
         if (null == args || args.length == 0 || args[0].equals("")) {
@@ -29,17 +32,17 @@ public class AppValidator {
         }
     }
 
-    private boolean validateUrlForSpecialCharacters(String url) {
-        return validateUrlWithRegExpression(AppConstants.COMMON_URL_CHARACTERS, url);
-    }
+    /**
+     * Validates if the given URL follows a valid URL pattern
+     *
+     * @param url - input URL
+     * @return {@code true} if the URL matches the valid URL pattern defined in {@link AppConstants#VALID_URL_PATTERN}, {@code false} otherwise
+     */
+    public boolean validateUrlForValidUrlPatten(String url) {
+        if (null == url || url.trim().equals("")) return false;
 
-    private boolean validateUrlForValidUrlPatten(String url) {
-        return validateUrlWithRegExpression(AppConstants.VALID_URL_PATTERN, url);
-    }
-
-    private boolean validateUrlWithRegExpression(String exp, String url) {
-        Pattern pattern = Pattern.compile(exp);
+        Pattern pattern = Pattern.compile(AppConstants.VALID_URL_PATTERN);
         Matcher matcher = pattern.matcher(url);
-        return matcher.find();
+        return matcher.matches();
     }
 }
