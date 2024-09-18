@@ -8,7 +8,7 @@
 - Open your terminal window.
 - Download the application from GitHub.
   ```
-  sudo git clone https://github.com/rajinda1980/motilent.git
+  git clone https://github.com/rajinda1980/motilent.git
   ```
 - Navigate to the "motilent" root folder.
   ```
