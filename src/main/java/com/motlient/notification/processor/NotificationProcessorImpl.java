@@ -14,6 +14,17 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.logging.Logger;
 
+/**
+ * Implementation of the NotificationProcessor interface.
+ *
+ * This class handles the process of sending notifications by:
+ * 1. Parsing notification details from a JSON file.
+ * 2. Validating the notification URL.
+ * 3. Sending an HTTP POST request with the notification content.
+ * 4. Measuring and returning the response time and details.
+ *
+ * It uses a JsonParser for parsing and serializing JSON, an AppValidator for URL validation, and an HttpClientWrapper for sending HTTP requests.
+ */
 public class NotificationProcessorImpl implements NotificationProcessor {
 
     private static final Logger LOGGER = Logger.getLogger(NotificationProcessorImpl.class.getName());

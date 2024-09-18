@@ -8,13 +8,16 @@ import com.motlient.notification.util.AppValidator;
 import java.util.logging.Logger;
 
 /**
- * Main class to run the application.
+ * The NotificationApp class is the entry point for the notification processing application.
+ * It initializes dependencies, validates input, processes notification requests, and handles exceptions.
  *
- * Application summary: This application takes a JSON file as input, sends an HTTP POST request to the given notification URL,
- * and handles and logs the output, including the response time and status.
+ * Dependencies:
+ * - AppValidator: Validates the input file path.
+ * - JsonParser: Parses JSON data (not used in this snippet).
+ * - HttpClientWrapper: Handles HTTP communication (not used in this snippet).
+ * - NotificationProcessor: Sends notifications and processes the response.
  *
- * Important:
- * 1. The application accepts only one argument.
+ * The main method sets up the application and initiates the processing with provided arguments.
  */
 public class NotificationApp {
 
@@ -22,15 +25,19 @@ public class NotificationApp {
     private final AppValidator appValidator;
     private final JsonParser jsonParser;
     private final HttpClientWrapper httpClientWrapper;
+    private final NotificationProcessor processor;
 
-    public NotificationApp(AppValidator appValidator, JsonParser jsonParser, HttpClientWrapper httpClientWrapper) {
+    public NotificationApp(AppValidator appValidator, JsonParser jsonParser, HttpClientWrapper httpClientWrapper,
+                           NotificationProcessor processor) {
         this.appValidator = appValidator;
         this.jsonParser = jsonParser;
         this.httpClientWrapper = httpClientWrapper;
+        this.processor = processor;
     }
 
     public static void main(String[] args) {
-        NotificationApp notificationApp = new NotificationApp(new AppValidator(), new WebhookJsonParser(), new WebhookHttpClient());
+        NotificationAppFactory factory = new NotificationAppFactory();
+        NotificationApp notificationApp = factory.createNotificationApp();
         notificationApp.process(args);
     }
 
@@ -40,7 +47,6 @@ public class NotificationApp {
             appValidator.validateJsonFilePath(args);
 
             //2. Process the file
-            NotificationProcessor processor = new NotificationProcessorImpl(jsonParser, appValidator, httpClientWrapper);
             NotificationResponse response = processor.sendNotification(args[0]);
 
             //3. Printing the response
