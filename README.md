@@ -1,6 +1,61 @@
+# Building and Deploying Application
+
+### Prerequisites
+- Java 17
+- Maven
+
+### Build and Run the Application
+- Open your terminal window.
+- Download the application from GitHub.
+  ```
+  sudo git clone https://github.com/rajinda1980/motilent.git
+  ```
+- Navigate to the "motilent" root folder.
+  ```
+  cd motilent
+  ```
+- Run the following command to build and package the application.
+  ```
+  mvn clean package
+  ```
+  The following log entry should be displayed if the application is built successfully.
+  ```
+  [INFO] --- maven-jar-plugin:3.4.2:jar (default-jar) @ notification ---
+  [INFO] Building jar: /home/kafka/Application/Interview/motilent/target/notification-1.0-SNAPSHOT.jar
+  [INFO] ------------------------------------------------------------------------
+  [INFO] BUILD SUCCESS
+  [INFO] ------------------------------------------------------------------------
+  [INFO] Total time:  6.592 s
+  [INFO] Finished at: 2024-09-18T12:00:24+01:00
+  [INFO] ------------------------------------------------------------------------
+  ```
+- Run the following command to run test cases.
+  ```
+  mvn test
+  ```
+  The following log entry will be displayed if all the test cases run successfully.
+  ```
+  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.828 s -- in com.motlient.notification.processor.WebhookClientWireMockTest
+  [INFO] Running com.motlient.notification.processor.WebhookJsonParserTest
+  [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.080 s -- in com.motlient.notification.processor.WebhookJsonParserTest
+  [INFO] Running com.motlient.notification.processor.NotificationProcessorTest
+  [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.091 s -- in com.motlient.notification.processor.NotificationProcessorTest
+  [INFO] Running com.motlient.notification.processor.WebhookClientTest
+  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.083 s -- in com.motlient.notification.processor.WebhookClientTest
+  [INFO]
+  [INFO] Results:
+  [INFO]
+  [INFO] Tests run: 47, Failures: 0, Errors: 0, Skipped: 0
+  [INFO]
+  [INFO] ------------------------------------------------------------------------
+  [INFO] BUILD SUCCESS
+  [INFO] ------------------------------------------------------------------------
+  [INFO] Total time:  4.997 s
+  [INFO] Finished at: 2024-09-18T12:01:16+01:00
+  [INFO] ------------------------------------------------------------------------
+  ```
+
 # Assumptions
 
-1. No spaces are allowed in the file path argument
-2. The file path length cannot exceed 200 characters
-3. The application expects the reportUID and studyInstanceUID fields to be directly part of the notificationContent object, rather than being enclosed in a wrapper object. The reportUID and studyInstanceUID fields should be provided in the root of the notificationContent without any additional nesting
-4. The URL must be a valid HTTPS URL. It follows the standard URL structure, including a protocol (https), a domain name (webhook.site), and a path like 3b8c180a-dcac-4700-afee-9ebde4abbfcb.
+1. The application expects the reportUID and studyInstanceUID fields to be directly part of the notificationContent object, rather than being enclosed in a wrapper object. The reportUID and studyInstanceUID fields should be provided in the root of the notificationContent without any additional nesting
+2. The URL must be a valid HTTPS URL. It follows the standard URL structure, including a protocol (https), a domain name (webhook.site), and a path like 3b8c180a-dcac-4700-afee-9ebde4abbfcb.
