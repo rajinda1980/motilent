@@ -56,17 +56,17 @@
   ```
 
 ### To Run the Application
-- Execute the following command to run the command-line application:
+- Execute the following command to run the command-line application.
   ```
   java -jar target/notification-1.0-SNAPSHOT-jar-with-dependencies.jar /home/kafka/motilent/src/main/resources/notification.json
   ```
 
-  Command format:
+  Command format.
   ```
   java -jar <jar file name> <path to notification JSON file>
   ```
 
-  Console output
+  Console output.
   ```
   Sep 18, 2024 1:10:09 PM com.motlient.notification.processor.NotificationProcessorImpl sendNotification
   INFO: Notification URL : https://webhook.site/3b8c180a-dcac-4700-afee-9ebde4abbfcb
@@ -83,6 +83,20 @@
   Response Received: {"reportUID":"20fb8e02-9c55-410a-93a9-489c6f1d7598","studyInstanceUID":"9998e02-9c55-410a-93a9-489c6f789798"}
   HTTP Response Code: 200
   Response Time: 757 ms
+  ```
+
+### To view the test coverage
+- Execute the following command to generate the test coverage report.
+  ```
+  mvn clean verify
+  ```
+- Then navigate to the site folder.
+  ```
+  cd target/site/jacoco
+  ```
+- Open the index.html page in your browser.
+  ```
+  Current test coverage is 96%
   ```
 
 # Assumptions
