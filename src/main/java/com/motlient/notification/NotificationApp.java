@@ -50,7 +50,9 @@ public class NotificationApp {
             NotificationResponse response = processor.sendNotification(args[0]);
 
             //3. Printing the response
+            System.out.println(" =================================== ");
             System.out.println(response.toString());
+            System.out.println(" =================================== ");
             LOGGER.info(response.toString());
 
         } catch (AppValidationException exception) {

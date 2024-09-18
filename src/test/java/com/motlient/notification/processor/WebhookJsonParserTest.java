@@ -43,7 +43,7 @@ public class WebhookJsonParserTest {
     void shouldGenerateNotificationDetails() throws Exception {
         NotificationDetails details = parser.parse(TestConstants.VALID_NOTIFICATION_JSON, NotificationDetails.class);
         Assertions.assertNotNull(details);
-        Assertions.assertEquals("https://webhook.site/3b8c180a-dcac-4700-afee-9ebde4abbfcb", details.getNotificationUrl());
+        Assertions.assertEquals("https://webhook.site/3b8c180a-dcac-4700-afee-777de4abbfcb", details.getNotificationUrl());
 
         LinkedHashMap<String, String> map = (LinkedHashMap<String, String>) details.getNotificationContent();
         Assertions.assertEquals("20fb8e02-9c55-410a-93a9-489c6f1d7598", map.get("reportUID"));

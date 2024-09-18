@@ -102,7 +102,7 @@ public class NotificationAppTest {
     void shouldRunProgramForValidArgument() throws Exception {
         String[] args = {"src/test/resources/valid_notification.json"};
         String response = """
-                Notification URL: https://webhook.site/3b8c180a-dcac-4700-afee-9ebde4abbfcb
+                Notification URL: https://webhook.site/3b8c180a-dcac-4700-afee-777de4abbfcb
                 Content Sent: {"reportUID":"20fb8e02-9c55-410a-93a9-489c6f1d7598","studyInstanceUID":"9998e02-9c55-410a-93a9-489c6f789798"}
                 Response Received: {"reportUID":"20fb8e02-9c55-410a-93a9-489c6f1d7598","studyInstanceUID":"9998e02-9c55-410a-93a9-489c6f789798"}
                 HTTP Response Code: 200
